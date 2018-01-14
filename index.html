@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+        <meta charset="UTF8">
+        <title>Sally Rosen Admin Console</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Sally Rosen Admin Console</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Headline</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Creator</th>
+                        <th>Image</th>
+                        <th>Admin</th>   
+                    </tr>
+                </thead>
+                <tbody class="items-list">
+
+                </tbody>
+            </table>              
+        </div>
+
+        <script type="text/template" class="items-list-template">
+            <td><span class="author"><%= author %></span></td>
+            <td><span class="headline"><%= headline %></span></td>
+            <td><span class="description"><%= description %></span></td>
+            <td><span class="category"><%= category %></span></td>
+            <td><span class="creator"><%= creator %></span></td>
+            <td><span class="img"><%= img %></span></td>
+            <td>
+                <button class="btn btn-warning edit-item">Edit</button>
+                <button class="btn btn-danger delete-item">Delete</button>
+            </td>            
+        </script>
+        <script src="node_modules/jquery/dist/jquery.js"></script>
+        <script src="node_modules/underscore/underscore.js"></script>
+        <script src="node_modules/backbone/backbone.js"></script>
+        <script src="index.js"></script>
+    </body>
+</html>
