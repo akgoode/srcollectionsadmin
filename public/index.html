@@ -12,6 +12,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Headline</th>
                         <th>Description</th>
@@ -39,12 +40,13 @@
         </div>
 
         <script type="text/template" class="items-list-template">
+            <td><span class="id"><%= id %></span></td>
             <td><span class="name"><%= name %></span></td>
             <td><span class="headline"><%= headline %></span></td>
-            <td><span class="description"><%= description %></span></td>
+            <td><span class="description"><div class="description-wrapper"><%= description %></div></span></td>
             <td><span class="category"><%= category %></span></td>
             <td><span class="creator"><%= creator %></span></td>
-            <td><span class="img"><%= img %></span></td>
+            <td><span class="img"><div class="img-wrapper"><%= img %></div></span></td>
             <td>
                 <button class="btn btn-warning edit-item">Edit</button>
                 <button class="btn btn-danger delete-item">Delete</button>

@@ -5,3 +5,16 @@ form span {
 .items-list td span {
     overflow: hidden;
 }
+
+
+.item-pill td {
+    width: 50px;
+}
+
+.description-wrapper {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    max-height: 40px !important;
+
+}
