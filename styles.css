@@ -1,0 +1,7 @@
+form span {
+    display: block;
+}
+
+.items-list td span {
+    overflow: hidden;
+}

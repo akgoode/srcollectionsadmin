@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="en">
     <head>
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="styles.css">
         <meta charset="UTF8">
         <title>Sally Rosen Admin Console</title>
     </head>
@@ -23,11 +24,22 @@
                 <tbody class="items-list">
 
                 </tbody>
-            </table>              
+            </table>
+            <div class="form-container">
+                <form>
+                    <span><label>Name:</label><input type="text" class="form-control item-name"></span>
+                    <span><label>Headline:</label><input type="text" class="form-control item-headline"></span>
+                    <span><label>Description:</label><input type="text" class="form-control item-description"></span>
+                    <span><label>Category:</label><input type="text" class="form-control item-category"></span>
+                    <span><label>Creator:</label><input type="text" class="form-control item-creator"></span>
+                    <span><label>Image:</label><input type="text" class="form-control item-img"></span><br>
+                    <button class="btn btn-success add-item">Add New Item</button>                  
+                </form>    
+            </div>            
         </div>
 
         <script type="text/template" class="items-list-template">
-            <td><span class="author"><%= author %></span></td>
+            <td><span class="name"><%= name %></span></td>
             <td><span class="headline"><%= headline %></span></td>
             <td><span class="description"><%= description %></span></td>
             <td><span class="category"><%= category %></span></td>
@@ -36,8 +48,11 @@
             <td>
                 <button class="btn btn-warning edit-item">Edit</button>
                 <button class="btn btn-danger delete-item">Delete</button>
+                <button class="btn btn-warning save-item" style="display:none">Save</button>
+                <button class="btn btn-danger cancel" style="display:none">Cancel</button>  
             </td>            
         </script>
+
         <script src="node_modules/jquery/dist/jquery.js"></script>
         <script src="node_modules/underscore/underscore.js"></script>
         <script src="node_modules/backbone/backbone.js"></script>
