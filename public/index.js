@@ -1,4 +1,35 @@
+
 var FIELDS = ['name', 'headline', 'description', 'category', 'creator', 'img'];
+var apiURL = 'http://localhost:4741';
+
+var api = {
+    getItems: function() {
+        console.log('in get items');
+        return $.ajax({
+            method: 'GET',
+            url: apiURL + '/items'
+        });
+    },
+    createItem: function(item) {
+        return $.ajax({
+            method: 'POST',
+            url: apiURL + '/items'
+        });
+    },
+    updateItem: function(id, data) {
+        return $.ajax({
+            method: 'PATCH',
+            url: apiURL + '/items/' + id,
+            data: data
+        });
+    },
+    deleteItem: function(id) {
+        return $.ajax({
+            method: 'DELETE',
+            url: apiURL + '/items/' + id
+        });
+    }
+};
 
 // Backbone Model
 var Item = Backbone.Model.extend({
@@ -118,4 +149,13 @@ $(document).ready(function() {
         var item = new Item(itemPlaceholder);
         items.add(item);
     });
+    console.log(api.getItems);
+    api.getItems().then(
+        function(data) {
+            console.log(data);
+        },
+        function(error) {
+            console.error(error);
+        }
+    );
 });
