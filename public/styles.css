@@ -2,13 +2,18 @@ form span {
     display: block;
 }
 
-.items-list td span {
-    overflow: hidden;
+.item-pill {
+    margin: 5px 0 !important;
+
 }
 
+.item-pill:hover {
+    background-color: red;
+}
 
-.item-pill td {
-    width: 50px;
+.img-wrapper {
+    max-width: 100px;
+    overflow: scroll;
 }
 
 .description-wrapper {

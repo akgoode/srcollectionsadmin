@@ -5,7 +5,7 @@ var apiURL = 'http://localhost:4741';
 // Backbone Model
 var Item = Backbone.Model.extend({
     defaults: {
-        id: '',
+        id: null,
         name: '',
         headline: '',
         description: '',
@@ -38,10 +38,10 @@ var ItemView = Backbone.View.extend({
         'click .delete-item': 'delete'
     },
     edit: function() {
-        $('.edit-item').hide();
-        $('.delete-item').hide();
-        $('.save-item').show();
-        $('.cancel').show();
+        this.$('.edit-item').hide();
+        this.$('.delete-item').hide();
+        this.$('.save-item').show();
+        this.$('.cancel').show();
 
         var self = this;
         _.each(FIELDS, function(field) {
