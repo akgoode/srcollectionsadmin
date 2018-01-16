@@ -1,0 +1,3 @@
+{
+    "FIELDS": ["name", "headline", "description", "category", "creator", "img"]
+}

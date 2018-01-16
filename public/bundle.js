@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11880,23 +11880,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var $ = __webpack_require__(0);
-var _ = __webpack_require__(1);
-var Backbone = __webpack_require__(3);
-
-// represent the column names
-// can be abstracted later to give customizable views
-
-var FIELDS = ['name', 'headline', 'description', 'category', 'creator', 'img'];
-
-// api origin
-// TODO: abstract out later to a more modular location
 var apiURL = 'http://localhost:4741';
 
-// Backbone Model
-var Item = Backbone.Model.extend({
+Item = Backbone.Model.extend({
     defaults: {
         id: null,
         name: '',
@@ -11907,115 +11895,47 @@ var Item = Backbone.Model.extend({
         img: ''
     }
 });
-
-// backbone collection
-
-var Items = Backbone.Collection.extend({
+Items = Backbone.Collection.extend({
     url: apiURL + '/items'
 });
 
-var items = new Items();
+module.exports = {
+    Item,
+    Items
+};
 
-var ItemView = Backbone.View.extend({
-    model: new Item(),
-    tagName: 'tr',
-    className: 'item-pill',
-    style: 'height: 50px',
-    initialize: function() {
-        this.template = _.template($('.items-list-template').html());
-    },
-    events: {
-        'click .edit-item': 'edit',
-        'click .save-item': 'save',
-        'click .cancel': 'cancel',
-        'click .delete-item': 'delete'
-    },
-    edit: function() {
-        this.$('.edit-item').hide();
-        this.$('.delete-item').hide();
-        this.$('.save-item').show();
-        this.$('.cancel').show();
 
-        var self = this;
-        _.each(FIELDS, function(field) {
-            self.$('.' + field).html('<input type=text class="form-control ' + field + '-update" value="' + self.model.get(field) + '">');
-        });
-        
-    },
-    save: function() {
-        var self = this;
-        _.each(FIELDS, function(field) {
-            self.model.set(field, self.$('.' + field + '-update').val());
-        });
-        this.model.save(null, {
-            success: function(response) {
-                console.log('succesfully updated item ' + response.toJSON().id);
-            },
-            error: function() {
-                console.log('failed to save');
-            }
-        });
-    },
-    cancel: function() {
-        this.render();
-    },
-    delete: function() {
-        this.model.destroy({
-            success: function(response) {
-                console.log('successfully deleted item ' + response.toJSON().id);
-            },
-            error: function() {
-                console.log('failed to delete blog');
-            }
-        });
-    },
-    render: function() {
-        this.$el.html(this.template(this.model.toJSON()));
-        return this;
-    }
-});
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
 
-var ItemsView = Backbone.View.extend({
-    model: items,
-    el: $('.items-list'),
-    initialize: function() {
-        var self = this;
-        this.model.on('add', this.render, this);
-        this.model.on('change', function() {
-            self.render();
-        }, this);
-        this.model.on('remove', this.render, this);
+module.exports = {"FIELDS":["name","headline","description","category","creator","img"]}
 
-        this.model.fetch({
-            success: function(response) {
-                console.log('got all items');
-            },
-            error: function() {
-                console.log('failed to get items');
-            }
-        });
-    },
-    render: function() {
-        var self = this;
-        this.$el.html('');
-        _.each(this.model.toArray(), function(item) {
-            self.$el.append((new ItemView({model: item})).render().$el);
-        });
-        return this;
-    }
-});
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var itemsView = new ItemsView();
+var $ = __webpack_require__(0);
+var _ = __webpack_require__(1);
+var Backbone = __webpack_require__(5);
+var ItemModel = __webpack_require__(2);
+var ItemView = __webpack_require__(7);
+
+var constants = __webpack_require__(3);
+
+var itemsView = new ItemView.ItemsView();
 
 $(document).ready(function() {
+    var items = new ItemModel.Items();
+
     $('.add-item').on('click', function(e) {
         e.preventDefault();
         var itemPlaceholder = {};
-        _.each(FIELDS, function(field) {
+        _.each(constants.FIELDS, function(field) {
             itemPlaceholder[field] = $('.item-' + field).val();
             $('.item-' + field).val('');
         });
-        var item = new Item(itemPlaceholder);
+        var item = new ItemModel.Item(itemPlaceholder);
         items.add(item);
         item.save(null, {
             success: function(response) {
@@ -12024,12 +11944,12 @@ $(document).ready(function() {
             error: function() {
                 console.log('failed to save');
             }
-        })
+        });
     });
 });
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Backbone.js 1.3.3
@@ -13954,10 +13874,10 @@ $(document).ready(function() {
   return Backbone;
 });
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports) {
 
 var g;
@@ -13981,6 +13901,111 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ItemModel = __webpack_require__(2);
+var $ = __webpack_require__(0);
+var _ = __webpack_require__(1);
+var constants = __webpack_require__(3);
+
+var ItemView = Backbone.View.extend({
+    model: new ItemModel.Item(),
+    tagName: 'tr',
+    className: 'item-pill',
+    style: 'height: 50px',
+    initialize: function() {
+        this.template = _.template($('.items-list-template').html());
+    },
+    events: {
+        'click .edit-item': 'edit',
+        'click .save-item': 'save',
+        'click .cancel': 'cancel',
+        'click .delete-item': 'delete'
+    },
+    edit: function() {
+        this.$('.edit-item').hide();
+        this.$('.delete-item').hide();
+        this.$('.save-item').show();
+        this.$('.cancel').show();
+
+        var self = this;
+        _.each(constants.FIELDS, function(field) {
+            self.$('.' + field).html('<input type=text class="form-control ' + field + '-update" value="' + self.model.get(field) + '">');
+        });
+        
+    },
+    save: function() {
+        var self = this;
+        _.each(constants.FIELDS, function(field) {
+            self.model.set(field, self.$('.' + field + '-update').val());
+        });
+        this.model.save(null, {
+            success: function(response) {
+                console.log('succesfully updated item ' + response.toJSON().id);
+            },
+            error: function() {
+                console.log('failed to save');
+            }
+        });
+    },
+    cancel: function() {
+        this.render();
+    },
+    delete: function() {
+        this.model.destroy({
+            success: function(response) {
+                console.log('successfully deleted item ' + response.toJSON().id);
+            },
+            error: function() {
+                console.log('failed to delete blog');
+            }
+        });
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+var ItemsView = Backbone.View.extend({
+    model: new ItemModel.Items(),
+    el: $('.items-list'),
+    initialize: function() {
+        var self = this;
+        this.model.on('add', this.render, this);
+        this.model.on('change', function() {
+            self.render();
+        }, this);
+        this.model.on('remove', this.render, this);
+        this.model.on('sync', this.render, this);
+
+        this.model.fetch({
+            success: function(response) {
+                console.log('got all items');
+            },
+            error: function() {
+                console.log('failed to get items');
+            }
+        });
+    },
+    render: function() {
+        var self = this;
+        this.$el.html('');
+        _.each(this.model.toArray(), function(item) {
+            self.$el.append((new ItemView({model: item})).render().$el);
+        });
+        return this;
+    }
+});
+
+module.exports = {
+    ItemView,
+    ItemsView
+};
+
 
 
 /***/ })
