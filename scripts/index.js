@@ -1,4 +1,6 @@
-
+var $ = require('jquery');
+var _ = require('underscore');
+var Backbone = require('backbone');
 
 // represent the column names
 // can be abstracted later to give customizable views
