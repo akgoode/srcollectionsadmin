@@ -1,3 +1,4 @@
 {
-    "FIELDS": ["name", "headline", "description", "category", "creator", "img"]
+    "FIELDS": ["name", "headline", "description", "category", "creator", "img"],
+    "apiURL": "http://localhost:4741"
 }

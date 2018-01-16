@@ -4,8 +4,6 @@ var Backbone = require('backbone');
 
 var constants = require('./constants.JSON');
 
-var apiURL = 'http://localhost:4741';
-
 var Item = Backbone.Model.extend({
     defaults: {
         id: null,
@@ -18,7 +16,7 @@ var Item = Backbone.Model.extend({
     }
 });
 var Items = Backbone.Collection.extend({
-    url: apiURL + '/items'
+    url: constants.apiURL + '/items'
 });
 
 var ItemView = Backbone.View.extend({

@@ -11888,8 +11888,6 @@ var Backbone = __webpack_require__(3);
 
 var constants = __webpack_require__(5);
 
-var apiURL = 'http://localhost:4741';
-
 var Item = Backbone.Model.extend({
     defaults: {
         id: null,
@@ -11902,7 +11900,7 @@ var Item = Backbone.Model.extend({
     }
 });
 var Items = Backbone.Collection.extend({
-    url: apiURL + '/items'
+    url: constants.apiURL + '/items'
 });
 
 var ItemView = Backbone.View.extend({
@@ -13979,7 +13977,7 @@ module.exports = g;
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = {"FIELDS":["name","headline","description","category","creator","img"]}
+module.exports = {"FIELDS":["name","headline","description","category","creator","img"],"apiURL":"http://localhost:4741"}
 
 /***/ })
 /******/ ]);
