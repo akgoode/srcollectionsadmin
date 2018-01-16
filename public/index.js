@@ -1,5 +1,12 @@
 
+
+// represent the column names
+// can be abstracted later to give customizable views
+
 var FIELDS = ['name', 'headline', 'description', 'category', 'creator', 'img'];
+
+// api origin
+// TODO: abstract out later to a more modular location
 var apiURL = 'http://localhost:4741';
 
 // Backbone Model
